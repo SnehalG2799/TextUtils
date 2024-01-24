@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../App.css";
 
-export default function TextForm() {
+export default function TextForm(props) {
   const [text, setText] = useState("");
 
   function toUpper() {
@@ -50,27 +50,29 @@ export default function TextForm() {
 
   return (
     <>
-      <div className="container">
-        <textarea
-          value={text}
-          onChange={setValueToTextArea}
-          className="form-control mb-3"
-          id="TextForm"
-          rows="8"
-          placeholder="Type or Paste your text here to change text case"
-        ></textarea>
-      </div>
+      <textarea
+        value={text}
+        onChange={setValueToTextArea}
+        className="form-control mb-3"
+        id="TextForm"
+        rows="8"
+        placeholder="Type or Paste your text here to change text case"
+        style={{
+          backgroundColor: props.mode === "dark" ? "#212529" : "white",
+          color: props.mode === "dark" ? "white" : "black",
+        }}
+      ></textarea>
       <button
         type="button"
-        className="btn btn-outline-primary mx-2 noBorderRadius"
+        className="btn btn-outline-primary me-2 mt-2 noBorderRadius"
         onClick={toUpper}
       >
-        UPPER CASE
+        UPPER CASE {props.mode}
       </button>
 
       <button
         type="button"
-        className="btn btn-outline-primary mx-2 noBorderRadius"
+        className="btn btn-outline-primary me-2 mt-2 noBorderRadius"
         onClick={toLower}
       >
         lower case
@@ -78,7 +80,7 @@ export default function TextForm() {
 
       <button
         type="button"
-        className="btn btn-outline-primary mx-2 noBorderRadius"
+        className="btn btn-outline-primary me-2 mt-2 noBorderRadius"
         onClick={toToggle}
       >
         tOGGLE cASE
@@ -86,7 +88,7 @@ export default function TextForm() {
 
       <button
         type="button"
-        className="btn btn-outline-primary mx-2 noBorderRadius"
+        className="btn btn-outline-primary me-2 mt-2 noBorderRadius"
         onClick={toCapitalize}
       >
         Capitalize Case
@@ -94,7 +96,7 @@ export default function TextForm() {
 
       <button
         type="button"
-        className="btn btn-outline-primary mx-2 noBorderRadius"
+        className="btn btn-outline-primary me-2 mt-2 noBorderRadius"
         onClick={copyToClipboard}
       >
         Copy to Clipboard
@@ -102,20 +104,18 @@ export default function TextForm() {
 
       <button
         type="button"
-        className="btn btn-outline-primary mx-2 noBorderRadius"
+        className="btn btn-outline-primary me-2 mt-2 noBorderRadius"
         onClick={clearText}
       >
         Clear
       </button>
 
-      <div 
-        className="container my-3  border border-primary "
-      >
-        <h3 style={{ color: "green" }}>Your Text Summary : </h3>
-        <p>
+      <div className="container my-3  border border-primary ">
+        <h3 style={{ color: "green"  }}>Your Text Summary : </h3>
+        <p style={{color: props.mode === "dark" ? "white" : "black"}}>
           {text.split(" ").length} words, {text.length} characters
         </p>
-        <p>{0.008 * text.split(" ").length} minuts to read </p>
+        <p style={{color: props.mode === "dark" ? "white" : "black"}}>{0.008 * text.split(" ").length} minutes to read.. </p>
       </div>
     </>
   );
